@@ -20,35 +20,38 @@ if [ "$NODE_VERSION" -lt 18 ]; then
     exit 1
 fi
 
-# Create directory structure
-mkdir -p "$HOME/.cld/system" "$HOME/.cld/skills" "$HOME/.cld/plugins" \
-         "$HOME/.cld/exports" "$HOME/.cld/benchmarks"
+# ── Repo raw base URL ───────────────────────────────────────
+RAW_BASE="https://raw.githubusercontent.com/ropuk019/open-cld/main/Install"
+
+# ── Directory structure ─────────────────────────────────────
+mkdir -p "$HOME/.cld/System" "$HOME/.cld/Skills" "$HOME/.cld/Plugins" \
+         "$HOME/.cld/Exports" "$HOME/.cld/Benchmarks"
 chmod 700 "$HOME/.cld"
 
-# Download cli.js
-CLI_URL="https://raw.githubusercontent.com/open-cld/install/main/cli.js"
-echo "  Downloading cli.js..."
+# ── Download main CLI ───────────────────────────────────────
+echo "  Downloading cld.js..."
+CLI_URL="${RAW_BASE}/Main/cld.js"
 if command -v curl &> /dev/null; then
-    curl -fsSL "$CLI_URL" -o "$HOME/.cld/cli.js"
+    curl -fsSL "$CLI_URL" -o "$HOME/.cld/cld.js"
 elif command -v wget &> /dev/null; then
-    wget -q "$CLI_URL" -O "$HOME/.cld/cli.js"
+    wget -q "$CLI_URL" -O "$HOME/.cld/cld.js"
 else
     echo "  Need curl or wget."; exit 1
 fi
-chmod +x "$HOME/.cld/cli.js"
+chmod +x "$HOME/.cld/cld.js"
 
-# Write default system prompt
-PROMPT_URL="https://raw.githubusercontent.com/open-cld/install/main/systemprompt.md"
+# ── Download system prompt ──────────────────────────────────
 echo "  Downloading systemprompt.md..."
+PROMPT_URL="${RAW_BASE}/systemprompt.md"
 if command -v curl &> /dev/null; then
-    curl -fsSL "$PROMPT_URL" -o "$HOME/.cld/system/systemprompt.md" 2>/dev/null || true
+    curl -fsSL "$PROMPT_URL" -o "$HOME/.cld/System/systemprompt.md" 2>/dev/null || true
 elif command -v wget &> /dev/null; then
-    wget -q "$PROMPT_URL" -O "$HOME/.cld/system/systemprompt.md" 2>/dev/null || true
+    wget -q "$PROMPT_URL" -O "$HOME/.cld/System/systemprompt.md" 2>/dev/null || true
 fi
 
-# If download failed, create default
-if [ ! -s "$HOME/.cld/system/systemprompt.md" ]; then
-    cat > "$HOME/.cld/system/systemprompt.md" << 'PROMPTEOF'
+# ── Fallback: create default system prompt ──────────────────
+if [ ! -s "$HOME/.cld/System/systemprompt.md" ]; then
+    cat > "$HOME/.cld/System/systemprompt.md" << 'PROMPTEOF'
 # CLD — The Recursive Agent Loop
 
 You are CLD, a recursively self-improving coding agent engineered to solve tasks completely, correctly, and efficiently. You operate in a continuous **Think → Plan → Act → Observe → Reflect → (Re)Plan** loop until the task is done.
@@ -73,12 +76,12 @@ You are CLD, a recursively self-improving coding agent engineered to solve tasks
 PROMPTEOF
 fi
 
-# Create symlink
+# ── Symlink ─────────────────────────────────────────────────
 BIN_DIR="$HOME/.local/bin"
 mkdir -p "$BIN_DIR"
-ln -sf "$HOME/.cld/cli.js" "$BIN_DIR/cld"
+ln -sf "$HOME/.cld/cld.js" "$BIN_DIR/cld"
 
-# Add to PATH
+# ── Add to PATH ─────────────────────────────────────────────
 if [[ ":$PATH:" != *":$BIN_DIR:"* ]]; then
     SHELL_RC=""
     case "$SHELL" in
@@ -98,5 +101,5 @@ echo "  ✅ CLD v2.0 installed."
 echo ""
 echo "  Run:  cld"
 echo "  Edit prompt: /edit-prompt"
-echo "  System prompt: ~/.cld/system/systemprompt.md"
+echo "  System prompt: ~/.cld/System/systemprompt.md"
 echo ""
