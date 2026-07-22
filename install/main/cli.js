@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 // ═══════════════════════════════════════════════════════════════════
 //  CLD v2.0 — Recursive Agent Loop CLI
-//  Surpasses every other CLI. Zero deps. Self-correcting. Beautiful.
 // ═══════════════════════════════════════════════════════════════════
 
 const fs = require('fs');
@@ -579,10 +578,10 @@ Use tools aggressively. Verify results. Never guess.`;
   }
 
   // 2. Inject project CLAUDE.md
-  const claudeMdPath = path.join(process.cwd(), 'CLAUDE.md');
+  const claudeMdPath = path.join(process.cwd(), 'CLD.md');
   if (fs.existsSync(claudeMdPath)) {
     const claudeMd = fs.readFileSync(claudeMdPath, 'utf8');
-    corePrompt += `\n\n<!-- PROJECT CONTEXT (CLAUDE.md) -->\n${claudeMd.slice(0, 4000)}${claudeMd.length > 4000 ? '\n... (truncated)' : ''}`;
+    corePrompt += `\n\n<!-- PROJECT CONTEXT (CLD.md) -->\n${claudeMd.slice(0, 4000)}${claudeMd.length > 4000 ? '\n... (truncated)' : ''}`;
   }
 
   // 3. Inject persistent memory
