@@ -21,8 +21,7 @@ if [ "$NODE_VERSION" -lt 18 ]; then
 fi
 
 # ── Repo raw base URL ───────────────────────────────────────
-RAW_BASE="https://raw.githubusercontent.com/ropuk019/open-cld/main/Install"
-
+RAW_BASE="https://raw.githubusercontent.com/ropuk019/open-cld/main/install"
 # ── Directory structure ─────────────────────────────────────
 mkdir -p "$HOME/.cld/System" "$HOME/.cld/Skills" "$HOME/.cld/Plugins" \
          "$HOME/.cld/Exports" "$HOME/.cld/Benchmarks"
@@ -30,7 +29,7 @@ chmod 700 "$HOME/.cld"
 
 # ── Download main CLI ───────────────────────────────────────
 echo "  Downloading cld.js..."
-CLI_URL="${RAW_BASE}/Main/cld.js"
+CLI_URL="${RAW_BASE}/main/cld.js"
 if command -v curl &> /dev/null; then
     curl -fsSL "$CLI_URL" -o "$HOME/.cld/cld.js"
 elif command -v wget &> /dev/null; then
