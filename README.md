@@ -1,9 +1,4 @@
-[A] Here's your README.md. Place it in the repo root (open-cld/README.md).
-
----
-
-```markdown
-# ⚡ CLD — Recursive Agent Loop CLI
+ ⚡ OPENCLD — Recursive Agent Loop CLI
 
 **CLD** is a zero-dependency, self-correcting coding agent that runs in Termux (or any Linux/macOS terminal). It connects to **OpenRouter's free models**, remembers your preferences, and works in a continuous Think→Plan→Act→Observe→Reflect loop until your task is done.
 
@@ -62,7 +57,7 @@ Step 2: Install CLD
 Run the one-command installer:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ropuk019/open-cld/main/Install/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/ropuk019/open-cld/main/install/install.sh | bash
 ```
 
 This will:
@@ -158,7 +153,7 @@ Command What It Does
 
 ---
 
-Project Context (CLAUDE.md)
+Project Context (CLD.md)
 
 Want CLD to remember your project's conventions? Run:
 
@@ -173,7 +168,7 @@ Then inside CLD:
 ▸ /init
 ```
 
-This creates a CLAUDE.md file in your project root. CLD automatically reads it and follows your build commands, test scripts, and code style rules.
+This creates a CLD.md file in your project root. CLD automatically reads it and follows your build commands, test scripts, and code style rules.
 
 ---
 
