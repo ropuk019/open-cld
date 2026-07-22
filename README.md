@@ -130,27 +130,7 @@ CLD will:
 
 Slash Commands
 
-Type /help to see all commands. The most useful ones:
-
-Command What It Does
-/help Show all commands
-/models List available free models
-/switch 2 Switch to model #2
-/status Session dashboard (tokens, context usage)
-/compact Compress long conversations to save tokens
-/memory add name value Remember something permanently
-/memory View all saved memories
-/review file.js Code review a file
-/security file.js Security audit a file
-/export Save conversation to markdown
-/resume Restore last session
-/init Create a CLAUDE.md for your project
-/edit-prompt Open system prompt in nano/vim
-/reload Reload system prompt after editing
-/spawn task Run a sub-agent in parallel
-/clear Start fresh conversation
-/exit Quit CLD
-
+Type /help to see all commands.
 ---
 
 Project Context (CLD.md)
