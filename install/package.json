@@ -1,13 +1,13 @@
 {
   "name": "open-cld",
-  "version": "2.0.0",
-  "description": "CLD — Recursive Agent Loop CLI. Surpasses every other coding agent. Free via OpenRouter.",
-  "main": "cli.js",
+  "version": "3.0.0",
+  "description": "CLD — a compact, zero-dependency terminal coding agent powered by OpenRouter.",
+  "main": "main/cld.js",
   "bin": {
-    "cld": "./cli.js"
+    "cld": "./main/cld.js"
   },
   "files": [
-    "cli.js",
+    "main/cld.js",
     "install.sh",
     "systemprompt.md"
   ],
@@ -22,13 +22,15 @@
   ],
   "license": "MIT",
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=18.18.0"
   },
   "scripts": {
-    "start": "node cli.js"
+    "start": "node main/cld.js",
+    "test": "node --test test/*.test.js",
+    "verify": "npm test && npm pack --dry-run"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ropuk019/open-cld/install"
+    "url": "git+https://github.com/ropuk019/open-cld.git"
   }
 }
