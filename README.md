@@ -1,265 +1,203 @@
- ⚡ OPENCLD — Recursive Agent Loop CLI
+CLD
 
-**CLD** is a zero-dependency, self-correcting coding agent that runs in Termux (or any Linux/macOS terminal). It connects to **OpenRouter's free models**, remembers your preferences, and works in a continuous Think→Plan→Act→Observe→Reflect loop until your task is done.
+CLD is an AI coding agent that runs directly in your terminal. It can read and edit your code, execute commands, search your project, run tests, inspect Git changes, and search the web.
 
-No API costs. No bloat. Just a single Node.js file.
-
----
-
-## What It Can Do
-
-- **30+ slash commands** — everything from `/review` to `/spawn`
-- **10 built-in tools** — read, write, edit files, run commands, search code, web search, git diff, run tests
-- **Persistent memory** — remembers facts across sessions
-- **Skills system** — create custom behaviors, inject into every prompt
-- **Plugin system** — MCP-compatible server descriptors
-- **Multi-model** — lists all OpenRouter free models, switch with `/switch 2`
-- **Context bar** — live token usage in the header
-- **Agent loop** — thinks in `<thinking>` tags, self-corrects on failure
-- **Sub-agents** — spawn parallel workers with `/spawn`
-- **Code review & security audit** — `/review file.js` and `/security file.js`
-- **Session resume** — `/resume` restores your last conversation
-- **Export** — save conversations as markdown
-- **System prompt from file** — edit `~/.cld/System/systemprompt.md` anytime, reload with `/reload`
+Powered by OpenRouter.
 
 ---
 
-## Prerequisites
+Requirements
 
-- **Termux** (from [F-Droid](https://f-droid.org/packages/com.termux/), not Play Store)
-- Or any Linux/macOS system with Node.js 18+
-
----
-
-## Step-by-Step Installation (Termux)
-
-### Step 1: Update Termux & Install Node.js
-
-Open Termux and run:
-
-```bash
-pkg update -y && pkg upgrade -y
-pkg install nodejs curl -y
-```
-
-Verify installation:
-
-```bash
-node -v
-```
-
-Should show v18.x.x or higher.
+- Node.js 18+
+- npm
+- OpenRouter API key
 
 ---
 
-Step 2: Install CLD
+Installation
 
-Run the one-command installer:
+1. Clone the repository
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/ropuk019/open-cld/main/install/install.sh | bash
-```
+git clone https://github.com/ropuk019/open-cld.git
+cd open-cld
 
-This will:
+2. Install CLD
 
-· Create ~/.cld/ with all subdirectories (System, Skills, Plugins, Exports, Benchmarks)
-· Download cld.js to ~/.cld/cld.js
-· Download systemprompt.md to ~/.cld/System/systemprompt.md
-· Create a cld command in ~/.local/bin/
-· Add ~/.local/bin to your PATH (in .bashrc)
+cd install
+npm install
+npm install -g .
 
----
+3. Start CLD
 
-Step 3: Reload Your Shell
-
-```bash
-source ~/.bashrc
-```
-
-Or close and reopen Termux.
-
----
-
-Step 4: Run CLD
-
-```bash
 cld
-```
-
-On first run, you'll see the setup wizard.
 
 ---
 
-First-Time Setup
+OpenRouter API Key
 
-Get an OpenRouter API Key
+CLD requires an OpenRouter API key to use AI models.
 
-1. Go to https://openrouter.ai/keys
-2. Sign up (free, no payment required)
-3. Click "Create Key"
-4. Copy the key (starts with sk-or-)
+Get your API key from:
 
-Configure CLD
+https://openrouter.ai/
 
-When you run cld for the first time:
-
-1. Paste your API key when prompted
-2. Wait for the free model list to load
-3. Choose a model by typing its number (e.g., 1 for Google Gemini Flash, 2 for Meta Llama, etc.)
-4. Done. Your choice is saved permanently.
+When CLD starts, follow the configuration prompts to set up your API key and model.
 
 ---
 
-Basic Usage
+Commands
 
-Start a conversation
+Start CLD
 
-Just type your request and press Enter:
-
-```
-▸ Create a Python script that sorts a CSV file by date
-```
-
-CLD will:
-
-· Think in <thinking> tags (you'll see its reasoning)
-· Plan the steps
-· Use tools to create files, run commands
-· Self-correct if something fails
-· Report when done
-
-Slash Commands
-
-Type /help to see all commands.
----
-
-Project Context (CLD.md)
-
-Want CLD to remember your project's conventions? Run:
-
-```bash
-cd ~/my-project
 cld
-```
 
-Then inside CLD:
-
-```
-▸ /init
-```
-
-This creates a CLD.md file in your project root. CLD automatically reads it and follows your build commands, test scripts, and code style rules.
+Start the interactive AI coding agent.
 
 ---
 
-Editing the System Prompt
+Help
 
-The system prompt controls how CLD thinks and behaves. Edit it anytime:
+/help
 
-```
-▸ /edit-prompt
-```
-
-This opens ~/.cld/System/systemprompt.md in your default editor (nano by default). Make changes, save, then:
-
-```
-▸ /reload
-```
-
-Your changes take effect immediately.
+Show available commands.
 
 ---
 
-Skills (Custom Behaviors)
+Clear Screen
 
-Create reusable skill presets:
+/clear
 
-```
-▸ /skills create python-expert
-Skill prompt: You are a Python expert. Always use type hints. Follow PEP 8 strictly. Write pytest tests.
-```
-
-Skills are stored in ~/.cld/Skills/ and automatically injected into every conversation.
+Clear the terminal screen.
 
 ---
 
-Updating CLD
+Exit
 
-To update to the latest version:
+/exit
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/ropuk019/open-cld/main/Install/install.sh | bash
-```
+Exit CLD.
 
-Your config, memories, skills, and plugins are preserved.
+You can also use:
 
----
-
-File Locations
-
-What Where
-Main script ~/.cld/cld.js
-System prompt ~/.cld/System/systemprompt.md
-Config (API key, model) ~/.cld/config.json
-Persistent memory ~/.cld/memory.json
-Conversation history ~/.cld/history.json
-Skills ~/.cld/Skills/*.json
-Plugins ~/.cld/Plugins/*.json
-Exported sessions ~/.cld/Exports/
-Benchmarks ~/.cld/Benchmarks/
-CLI command ~/.local/bin/cld → ~/.cld/cld.js
+/quit
 
 ---
 
-Troubleshooting
+Memory
 
-"cld: command not found"
+/memory
 
-```bash
-source ~/.bashrc
-```
+View or manage persistent agent memory.
 
-Or add manually:
+---
 
-```bash
-export PATH="$HOME/.local/bin:$PATH"
-```
+Spawn Agent
 
-"Node.js >= 18 required"
+/spawn
 
-```bash
-pkg update -y && pkg install nodejs -y
-```
+Spawn a new agent task.
 
-"API error: 401"
+---
 
-Your API key is invalid or expired. Run:
+Output Style
 
-```bash
-rm ~/.cld/config.json
+/output-style
+
+Change the agent's output style.
+
+---
+
+What Can CLD Do?
+
+You can simply tell CLD what you want to do.
+
+Analyze a project
+
+Analyze this project and explain how it works.
+
+Fix a bug
+
+Find and fix the login bug in this project.
+
+Create a feature
+
+Add dark mode to this website.
+
+Edit files
+
+Update the homepage and make the design more modern.
+
+Run commands
+
+Install the dependencies and start the project.
+
+Run tests
+
+Run the tests and fix any errors you find.
+
+Git
+
+Check the current git diff and explain what changed.
+
+Research
+
+Search the web and find the latest documentation for this API.
+
+CLD will decide which tools it needs to complete the task.
+
+---
+
+Available Agent Tools
+
+CLD can use the following tools:
+
+Tool| Description
+"read_file"| Read a file
+"write_file"| Create or overwrite a file
+"edit_file"| Edit an existing file
+"execute_command"| Run a terminal command
+"list_files"| List files and directories
+"search_content"| Search inside files
+"search_file"| Find files
+"run_tests"| Run project tests
+"git_diff"| View Git changes
+"web_search"| Search the web
+
+---
+
+Termux
+
+CLD can also be installed on Termux.
+
+pkg update
+pkg install nodejs git
+
+Then:
+
+git clone https://github.com/ropuk019/open-cld.git
+cd open-cld/install
+npm install
+npm install -g .
+
+Run:
+
 cld
-```
 
-And re-enter your key.
+If you want to work with files in Android shared storage:
 
-Models list is empty
+termux-setup-storage
 
-Check your internet connection. OpenRouter may be temporarily down. Try again in a few minutes.
-
-"Permission denied" on install
-
-```bash
-chmod +x ~/.cld/cld.js
-```
+«Tip: It's recommended to clone and run CLD from the Termux home directory instead of "/storage/emulated/0/".»
 
 ---
 
-Uninstalling
+Security
 
-```bash
-rm -rf ~/.cld
-rm ~/.local/bin/cld
-```
+CLD can execute terminal commands and modify files.
+
+Always review commands and changes before using them in important or production projects.
+
+Never share or commit your OpenRouter API key.
 
 ---
 
