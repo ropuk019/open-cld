@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -euo
+if bash -c 'set -o pipefail' 2>/dev/null; then
+    set -o pipefail
+fi
 
 APP=cld
 APP_NAME="CLD"
